@@ -1,2 +1,3 @@
 ### Java template
-*.class
+target
+.vscode

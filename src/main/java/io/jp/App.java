@@ -10,13 +10,12 @@ import java.io.IOException;
 
 public class App extends Application {
 
-    private static Scene scene;
-
     @Override
     public void start(Stage stage) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource(""));
-        scene = new Scene(parent, 800, 600);
-        stage.setScene(scene);
+        Parent parent = new FXMLLoader(getClass().getResource("gui/MainView.fxml")).load();
+        Scene mainScene = new Scene(parent);
+        stage.setScene(mainScene);
+        stage.setTitle("Title");
         stage.show();
     }
 
