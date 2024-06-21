@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
@@ -32,7 +31,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemmenuItemDepartmentAction() {
-        System.out.println("onMenuItemmenuItemDepartmentAction");
+        loadView("DeparmentList.fxml");
     }
 
     @FXML
@@ -48,7 +47,6 @@ public class MainViewController implements Initializable {
     // synchronized garante que esse processo não seja interrompido pelo multithread
     private synchronized void loadView(String absoluteName) {
         try {
-
             FXMLLoader fx = new FXMLLoader(getClass().getResource(absoluteName));
             VBox newVbox = fx.load();
             Scene mainScene = App.getMainScene();
@@ -56,7 +54,6 @@ public class MainViewController implements Initializable {
             VBox mainRouteBox = (VBox) mainVBox.getChildren().get(1);
             mainRouteBox.getChildren().clear();
             mainRouteBox.getChildren().addAll(newVbox);
-
         } catch (IOException e) {
             Alerts.showAlert("Error painel", null, "Error when trying to open", AlertType.ERROR);
             System.out.println(e.getMessage());
