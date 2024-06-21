@@ -56,7 +56,7 @@ public class MainViewController implements Initializable {
             mainRouteBox.getChildren().addAll(newVbox);
         } catch (IOException e) {
             Alerts.showAlert("Error painel", null, "Error when trying to open", AlertType.ERROR);
-            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
         }
 
     }
