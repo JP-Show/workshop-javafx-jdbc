@@ -1,10 +1,14 @@
 package io.jp.gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import io.jp.App;
 import io.jp.model.entities.Department;
+import io.jp.model.entities.services.DepartmentService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +18,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class DeparmentController implements Initializable {
+
+    // why won't we instance? Because the hard coupling.
+    // SOLID principle, inversion of control
+    private DepartmentService service;
 
     @FXML
     private TableView<Department> tableViewDepartment;
@@ -25,6 +33,8 @@ public class DeparmentController implements Initializable {
 
     @FXML
     private Button btNew;
+
+    private ObservableList<Department> obsList;
 
     @FXML
     public void onBtNewAction() {
@@ -47,4 +57,15 @@ public class DeparmentController implements Initializable {
 
     }
 
+    public void updateTableView() {
+        if (service == null)
+            throw new IllegalStateException("service was null");
+        List<Department> list = service.findall();
+        obsList = FXCollections.observableArrayList(list);
+        tableViewDepartment.setItems(obsList);
+    }
+
+    public void setDepartmentService(DepartmentService service) {
+        this.service = service;
+    }
 }

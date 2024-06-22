@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import io.jp.App;
 import io.jp.gui.utils.Alerts;
+import io.jp.model.entities.services.DepartmentService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +32,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemmenuItemDepartmentAction() {
-        loadView("DeparmentList.fxml");
+        loadView2("DeparmentList.fxml");
     }
 
     @FXML
@@ -54,6 +55,27 @@ public class MainViewController implements Initializable {
             VBox mainRouteBox = (VBox) mainVBox.getChildren().get(1);
             mainRouteBox.getChildren().clear();
             mainRouteBox.getChildren().addAll(newVbox);
+        } catch (IOException e) {
+            Alerts.showAlert("Error painel", null, "Error when trying to open", AlertType.ERROR);
+            System.out.println(e.getCause());
+        }
+
+    }
+
+    private synchronized void loadView2(String absoluteName) {
+        try {
+            FXMLLoader fx = new FXMLLoader(getClass().getResource(absoluteName));
+            VBox newVbox = fx.load();
+            Scene mainScene = App.getMainScene();
+            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+            VBox mainRouteBox = (VBox) mainVBox.getChildren().get(1);
+            mainRouteBox.getChildren().clear();
+            mainRouteBox.getChildren().addAll(newVbox);
+
+            DeparmentController controller = fx.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+
         } catch (IOException e) {
             Alerts.showAlert("Error painel", null, "Error when trying to open", AlertType.ERROR);
             System.out.println(e.getCause());

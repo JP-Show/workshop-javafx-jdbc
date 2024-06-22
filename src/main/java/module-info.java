@@ -7,4 +7,5 @@ module io.jp {
     opens io.jp.gui to javafx.fxml;
 
     exports io.jp;
+    exports io.jp.model.entities;
 }
