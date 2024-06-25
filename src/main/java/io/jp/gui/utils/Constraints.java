@@ -1,6 +1,5 @@
 package io.jp.gui.utils;
 
-import javafx.beans.value.ChangeListener;
 import javafx.scene.control.TextField;
 
 public class Constraints {
